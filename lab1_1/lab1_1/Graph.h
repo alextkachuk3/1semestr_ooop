@@ -32,6 +32,11 @@ private:
 	int counter = 0;
 	
 public:
+
+	T& operator[](const int& index)
+	{
+		return graph_map.at(index).data;
+	}
 	void add_top()
 	{
 		graph_map[counter];
