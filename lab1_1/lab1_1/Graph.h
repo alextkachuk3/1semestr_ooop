@@ -51,7 +51,7 @@ public:
 	}
 	void clean()
 	{
-		graph_map.empty();
+		graph_map.clear();
 		graph_size_counter = 0;
 	}
 	void add_top()
@@ -66,7 +66,7 @@ public:
 	}
 	void adj_matrix(const vector<vector<int>>& adjacency_matrix)
 	{
-		graph_map.empty();
+		graph_map.clear();
 		int count = adjacency_matrix.size();
 		graph_size_counter = count;
 		for (int i = 0; i < count; i++)
@@ -77,6 +77,20 @@ public:
 				{
 					graph_map[i].links.insert(Edge{ &graph_map[j], 1 });
 				}
+			}
+		}
+	}
+	void adj_list(const vector<vector<int>>& adjacency_list)
+	{
+		graph_map.clear();
+		int count = adjacency_list.size();
+		for (int i = 0; i < count; i++)
+		{
+			for (int j = 0; j < adjacency_list[i].size(); j++)
+			{
+				if (adjacency_list[i][j] >= count)
+					throw invalid_argument("Invalid list");
+				graph_map[i].links.insert(Edge{ &graph_map[adjacency_list[i][j]], 1 });
 			}
 		}
 	}
