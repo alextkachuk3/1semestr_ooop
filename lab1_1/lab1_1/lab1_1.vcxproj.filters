@@ -18,6 +18,9 @@
     <ClInclude Include="Graph.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="Dice.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lab1.cpp">

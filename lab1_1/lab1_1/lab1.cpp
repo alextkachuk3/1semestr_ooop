@@ -4,20 +4,23 @@
 #include <string>
 #include <sstream>
 #include "Graph.h"
+#include "Dice.h"
 
 using namespace std;
 
 void dice_menu()
 {
+	graph<dice> Dice;
 
 }
 
 void graph_menu()
 {
-	int op1 = 0, op2 = 0;
-	Graph<int> graph;
-	while (op1 != 5)
+	
+	graph<int> Graph;
+	while (true)
 	{
+		int op1, op2 = 0;
 		cout << "1.Create new graph" << endl << "2.Edit graph" << endl << "3.Print graph" << endl << "4.Algorithms" << endl << "5.Back" << endl;
 		cin >> op1;
 		switch (op1)
@@ -33,7 +36,7 @@ void graph_menu()
 				{
 				case 1:
 				{
-					graph.clean();
+					Graph.clean();
 					system("cls");
 					cout << "New matrix created!" << endl;
 					break;
@@ -52,7 +55,7 @@ void graph_menu()
 							cin >> b;
 						}
 					}
-					graph.adj_matrix(matrix);
+					Graph.adj_matrix(matrix);
 					system("cls");
 					cout << "New matrix created!" << endl;
 					break;
@@ -82,7 +85,7 @@ void graph_menu()
 							list[i].push_back(n);
 						}
 					}
-					graph.adj_list(list);
+					Graph.adj_list(list);
 					system("cls");
 					cout << "New matrix created!" << endl;
 					break;
@@ -113,7 +116,7 @@ void graph_menu()
 				{
 				case 1:
 				{
-					graph.add_top();
+					Graph.add_top();
 					break;
 				}
 				case 2:
@@ -158,6 +161,7 @@ void graph_menu()
 		}
 		case 5:
 		{
+			system("cls");
 			return;
 		}
 		default:
@@ -167,23 +171,34 @@ void graph_menu()
 			break;
 		}
 		}
-		op1 = 0;
 	}
 }
 
 int main()
 {
-	int op = 0;
-	while (op != 3)
+	while (true)
 	{
-		cout << "1.Dice" << endl << "2.Graph" << "3.Exit" << endl;
+		cout << "1.Dice" << endl << "2.Graph" << endl << "3.Exit" << endl;
+		int op;
 		cin >> op;
 		switch (op)
 		{
 		case 1:
+		{
+			system("cls");
 			dice_menu();
+			break;
+		}
 		case 2:
+		{
+			system("cls");
 			graph_menu();
+			break;
+		}
+		case 3:
+		{
+			return 0;
+		}
 		default:
 		{
 			system("cls");
@@ -191,6 +206,6 @@ int main()
 			break;
 		}
 		}
-		return 0;
 	}
+		return 0;
 }
