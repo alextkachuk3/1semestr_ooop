@@ -1,17 +1,24 @@
 ﻿#include <vector>
+#include <set>
 #include <iostream>
 #include <string>
 #include <sstream>
 #include "Graph.h"
 
-int main()
+using namespace std;
+
+void dice_menu()
 {
-	Graph<string> graph;
-	int op1 = 0;
-	int op2 = 0;
-	while (true)
+
+}
+
+void graph_menu()
+{
+	int op1 = 0, op2 = 0;
+	Graph<int> graph;
+	while (op1 != 5)
 	{
-		cout << "1.Create new graph" << endl << "2.Edit graph" << endl << "3.Print graph" << endl << "4.Algorithms" << endl << "5.Exit" << endl;
+		cout << "1.Create new graph" << endl << "2.Edit graph" << endl << "3.Print graph" << endl << "4.Algorithms" << endl << "5.Back" << endl;
 		cin >> op1;
 		switch (op1)
 		{
@@ -20,7 +27,7 @@ int main()
 			system("cls");
 			while (op2 != 4)
 			{
-				cout << "1.Empty graph" << endl << "2.Use adjacency matrix" << endl << "3.Use adjacency list" << endl << "4.Cancel" << endl;
+				cout << "1.Empty graph" << endl << "2.Use adjacency matrix" << endl << "3.Use adjacency list" << endl << "4.Back" << endl;
 				cin >> op2;
 				switch (op2)
 				{
@@ -38,7 +45,7 @@ int main()
 					cin >> count_tops;
 					cout << "Enter matrix" << endl;
 					vector<vector<int>> matrix(count_tops, vector<int>(count_tops));
-					for (auto &a : matrix)
+					for (auto& a : matrix)
 					{
 						for (auto& b : a)
 						{
@@ -81,7 +88,11 @@ int main()
 					break;
 				}
 				case 4:
+				{
+					system("cls");
+					op2 = 0;
 					break;
+				}
 				default:
 					system("cls");
 					cout << "Wrong operation" << endl;
@@ -93,8 +104,47 @@ int main()
 		}
 		case 2:
 		{
+			system("cls");
+			while (op2 != 4)
+			{
+				cout << "1.Add top" << endl << "2.Edit top" << endl << "3.Edit edge" << endl << "4.Back" << endl;
+				cin >> op2;
+				switch (op2)
+				{
+				case 1:
+				{
+					graph.add_top();
+					break;
+				}
+				case 2:
+				{
+					int num_t;
+					cout << "Enter number of top:";
+					cin >> num_t;
 
-			break;
+					break;
+				}
+				case 3:
+				{
+
+					break;
+				}
+				case 4:
+				{
+					system("cls");
+					op2 = 0;
+					break;
+				}
+				default:
+				{
+					system("cls");
+					cout << "Wrong operation" << endl;
+					break;
+				}
+				break;
+				}
+				break;
+			}
 		}
 		case 3:
 		{
@@ -108,7 +158,7 @@ int main()
 		}
 		case 5:
 		{
-			return 0;
+			return;
 		}
 		default:
 		{
@@ -117,6 +167,30 @@ int main()
 			break;
 		}
 		}
+		op1 = 0;
 	}
-	return 0;
+}
+
+int main()
+{
+	int op = 0;
+	while (op != 3)
+	{
+		cout << "1.Dice" << endl << "2.Graph" << "3.Exit" << endl;
+		cin >> op;
+		switch (op)
+		{
+		case 1:
+			dice_menu();
+		case 2:
+			graph_menu();
+		default:
+		{
+			system("cls");
+			cout << "Wrong operation" << endl;
+			break;
+		}
+		}
+		return 0;
+	}
 }

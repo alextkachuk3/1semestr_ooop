@@ -64,6 +64,34 @@ public:
 		graph_map[graph_size_counter] = Top(data);
 		graph_size_counter++;
 	}
+	/*void print_top_info(const& int n)
+	{
+		if(n>=graph_size_counter)
+			throw throw invalid_argument("Invalid argument");
+		
+	}*/
+	bool is_connected(const int &n1, const int &n2)
+	{
+		if(n1>=graph_size_counter || n2>=graph_size_counter)
+			throw invalid_argument("Invalid arguments");
+		bool b = false;
+		for (const auto& a = graph_map.at(n1).links)
+		{
+			if (a.link == &graph_map[n2])
+			{
+				b = true;
+			}
+		}
+		return b;
+	}
+	void edit_edge_weight(const int& n1, const int& n2)
+	{
+		if (!is_connected(n1, n2))
+		{
+			throw invalid_argument("Invalid arguments");
+		}
+		
+	}
 	void adj_matrix(const vector<vector<int>>& adjacency_matrix)
 	{
 		graph_map.clear();
