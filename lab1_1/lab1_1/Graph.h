@@ -13,11 +13,11 @@ ostream& operator << (ostream& out, const vector<T>& vec)
 	result += "{ ";
 	for (const auto& a : vec)
 	{
-		result += to_string(a) + ", ";
+		result += (a) + ", ";
 	}
 	result.resize(result.size() - 2);
 	out << result;
-	return result;
+	return out;
 }
 
 template <typename T>
@@ -83,6 +83,28 @@ public:
 		graph_map[graph_size_counter] = Top(data);
 		graph_size_counter++;
 	}
+	void del_top(const int& index)
+	{
+		T data = graph_map.at(index).data;
+		if (!graph_map.count(index))
+		{
+			cout << "There is no such top!" << endl;
+			return;
+		}
+		for (auto& a : graph_map)
+		{
+			for (auto& b : a.second.links)
+			{
+				if (b.link->data == data)
+				{
+					a.second.links.erase(b);
+					break;
+				}
+			}
+		}
+		graph_map.erase(index);
+		graph_size_counter--;
+	}
 	void print_top_info(const int& n)
 	{
 		cout << graph_map.at(n).data;
@@ -137,9 +159,14 @@ public:
 			}
 		}
 	}
-	int distance(const int& ind1, const int* ind2)
+	int distance(const int& ind1, const int& ind2)
 	{
-
+		vector<int> dist(graph_size_counter - 1);
+		return 0;
+	}
+	bool chech_connectivity()
+	{
+		return true;
 	}
 	friend class dice;
 };
