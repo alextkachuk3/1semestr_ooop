@@ -159,14 +159,15 @@ public:
 			}
 		}
 	}
+	/*
 	int distance(const int& ind1, const int& ind2)
 	{
-		vector<int> dist(graph_size_counter - 1);
-		return 0;
+		
 	}
 	bool chech_connectivity()
 	{
-		return true;
+		
 	}
+	*/
 	friend class dice;
 };
