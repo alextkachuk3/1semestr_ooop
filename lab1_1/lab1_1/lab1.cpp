@@ -1,6 +1,4 @@
-﻿#include <vector>
-#include <set>
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <sstream>
 #include "Graph.h"
@@ -10,17 +8,89 @@ using namespace std;
 
 void dice_menu()
 {
-	graph<dice> Dice;
+	vector<int> my_dices;
+	dice Dice;
+	Dice.add_dice({ {1, 1}, {2,1} });
+	Dice.add_dice({ {3, 1}, {4,1} });
+	Dice.add_dice({ {5, 1}, {6,1} });
+	Dice.add_dice({ {7, 1}, {8,1} });
+	Dice.add_dice({ {9, 1}, {10,1} });
+	Dice.add_dice({ {11, 1}, {12,1} });
+	Dice.add_dice({ {13, 1}, {14, 1}, {15, 1}, {16, 1}, {17, 1}, {18, 1}, {19, 1}, {20, 1} });
+	while (true)
+	{
+		int op;
+		cout << "1.Add dice" << endl << "2.Print my dice" << endl << "3.Edit chance" << endl << "4.Print all chance" << endl << "5.Back" << endl;
+		cin >> op;
+		switch (op)
+		{
+		case 1:
+		{
+			system("cls");
+			Dice.print_all_dice();
+			cout << "Select dice" << endl;
+			int index;
+			cin >> index;
+			if (index > 6)
+			{
+				cout << "Wrong index!" << endl;
+				break;
+			}
+			my_dices.push_back(index);
+			break;
+		}
+		case 2:
+		{
+			system("cls");
+			for (const auto& a : my_dices)
+			{
+				Dice.print_dice(a);
+			}
+			break;
+		}
+		case 3:
+		{
+			system("cls");
+			int index;
+				double new_chance;
+			cout << "Enter index";
+			cin >> index;
+			cout << "Enter chance";
+			cin >> new_chance;
+			if (new_chance > 1 || new_chance < 0)
+			{
+				cout << "Wrong index" << endl;
+				break;
+			}
+			Dice.change_chance(index, new_chance);
+			break;
+		}
+		case 4:
+		{
 
+			system("cls");
+			break;
+		}
+		case 5: 
+		{
+			system("cls");
+			return;
+		}
+		default:
+		{
+			system("cls");
+			cout << "Wrong operation!" << endl;
+		}
+		}
+	}
 }
 
-void graph_menu()
+void graph_int_menu()
 {
-	
 	graph<int> Graph;
 	while (true)
 	{
-		int op1, op2 = 0;
+		int op1 = 0, op2 = 0;
 		cout << "1.Create new graph" << endl << "2.Edit graph" << endl << "3.Print graph" << endl << "4.Algorithms" << endl << "5.Back" << endl;
 		cin >> op1;
 		switch (op1)
@@ -103,14 +173,13 @@ void graph_menu()
 				}
 				break;
 			}
-			break;
 		}
 		case 2:
 		{
 			system("cls");
 			while (op2 != 4)
 			{
-				cout << "1.Add top" << endl << "2.Edit top" << endl << "3.Edit edge" << endl << "4.Back" << endl;
+				cout << "1.Add top" << endl << "2.Change top data" << endl << "3.Connect top" << endl << "4.Delete top" << endl << "5.Back" << endl;
 				cin >> op2;
 				switch (op2)
 				{
@@ -121,21 +190,32 @@ void graph_menu()
 				}
 				case 2:
 				{
-					int num_t;
+					int num_t, new_data;
 					cout << "Enter number of top:";
 					cin >> num_t;
-
+					cout << "Enter data:";
+					cin >> new_data;
+					Graph.change_data(num_t, new_data);
 					break;
 				}
 				case 3:
 				{
-
+					int num_from, num_to;
+					cout << "Enter number of top(from):";
+					cin >> num_from;
+					cout << "Enter number of top(to)";
+					cin >> num_to;
+					Graph.connect(num_from, num_to);
 					break;
 				}
 				case 4:
 				{
+
+					break;
+				}
+				case 5:
+				{
 					system("cls");
-					op2 = 0;
 					break;
 				}
 				default:
@@ -144,14 +224,13 @@ void graph_menu()
 					cout << "Wrong operation" << endl;
 					break;
 				}
-				break;
 				}
 				break;
 			}
 		}
 		case 3:
 		{
-
+			Graph.print_graph();
 			break;
 		}
 		case 4:
@@ -174,11 +253,16 @@ void graph_menu()
 	}
 }
 
+void graph_vector_string_menu()
+{
+
+}
+
 int main()
 {
 	while (true)
 	{
-		cout << "1.Dice" << endl << "2.Graph" << endl << "3.Exit" << endl;
+		cout << "1.Dice" << endl << "2.Graph(int)" << endl << "3.Graph(vector<string>)" << endl << "4.Exit" << endl;
 		int op;
 		cin >> op;
 		switch (op)
@@ -192,13 +276,16 @@ int main()
 		case 2:
 		{
 			system("cls");
-			graph_menu();
+			graph_int_menu();
 			break;
 		}
 		case 3:
 		{
-			return 0;
+			system("cls");
+			graph_vector_string_menu();
+			break;
 		}
+		case 4:	return 0;
 		default:
 		{
 			system("cls");
@@ -207,5 +294,4 @@ int main()
 		}
 		}
 	}
-		return 0;
 }

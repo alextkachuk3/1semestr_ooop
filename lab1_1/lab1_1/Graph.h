@@ -3,7 +3,22 @@
 #include <vector>
 #include <set>
 
+
 using namespace std;
+
+template<typename T>
+ostream& operator << (ostream& out, const vector<T>& vec)
+{
+	string result;
+	result += "{ ";
+	for (const auto& a : vec)
+	{
+		result += to_string(a) + ", ";
+	}
+	result.resize(result.size() - 2);
+	out << result;
+	return result;
+}
 
 template <typename T>
 class graph
@@ -13,8 +28,8 @@ private:
 	class Top
 	{
 	public:
-		Top() {};
-		Top(T data)
+		Top() :data() { };
+		Top(const T& data)
 		{
 			this->data = data;
 		}
@@ -34,8 +49,8 @@ private:
 		int weight;
 	};
 	map<int, Top> graph_map;
-	int graph_size_counter = 0;
-	
+	size_t graph_size_counter = 0;
+
 public:
 	friend bool operator<(const Top& lft, const Top& rth)
 	{
@@ -54,6 +69,10 @@ public:
 		graph_map.clear();
 		graph_size_counter = 0;
 	}
+	int size() const
+	{
+		return graph_size_counter;
+	}
 	void add_top()
 	{
 		graph_map[graph_size_counter];
@@ -66,36 +85,32 @@ public:
 	}
 	void print_top_info(const int& n)
 	{
-		if(n>=graph_size_counter)
-			throw throw invalid_argument("Invalid argument");
-		
+		cout << graph_map.at(n).data;
 	}
-	/*bool is_connected(const int &n1, const int &n2)
+	void print_graph()
 	{
-		if(n1>=graph_size_counter || n2>=graph_size_counter)
-			throw invalid_argument("Invalid arguments");
-		bool b = false;
-		for (const auto& a = graph_map.at(n1).links)
+		for (const auto& a : graph_map)
 		{
-			if (a.link == &graph_map[n2])
+			cout << "#" << a.first << "-" << a.second.data << " connected to:";
+			for (const auto& b : a.second.links)
 			{
-				b = true;
+				cout << b.link->data << "(" << b.weight << ")";
 			}
+			cout << endl;
 		}
-		return b;
 	}
-	void edit_edge_weight(const int& n1, const int& n2)
+	void change_data(const int& index, const T& data)
 	{
-		if (!is_connected(n1, n2))
-		{
-			throw invalid_argument("Invalid arguments");
-		}
-		
-	}*/
+		graph_map[index].data = data;
+	}
+	void connect(const int& from, const int& to)
+	{
+		graph_map[from].links.insert({ &graph_map[to], 1 });
+	}
 	void adj_matrix(const vector<vector<int>>& adjacency_matrix)
 	{
 		graph_map.clear();
-		int count = adjacency_matrix.size();
+		size_t count = adjacency_matrix.size();
 		graph_size_counter = count;
 		for (int i = 0; i < count; i++)
 		{
@@ -111,7 +126,7 @@ public:
 	void adj_list(const vector<vector<int>>& adjacency_list)
 	{
 		graph_map.clear();
-		int count = adjacency_list.size();
+		size_t count = adjacency_list.size();
 		for (int i = 0; i < count; i++)
 		{
 			for (int j = 0; j < adjacency_list[i].size(); j++)
@@ -122,4 +137,9 @@ public:
 			}
 		}
 	}
+	int distance(const int& ind1, const int* ind2)
+	{
+
+	}
+	friend class dice;
 };
